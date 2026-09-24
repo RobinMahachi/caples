@@ -1,0 +1,55 @@
+---
+output: github_document
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+# caples
+
+Fast, plain-English readouts for A/B/n tests on conversion rates.
+
+Named after John Caples, who pioneered tested advertising.
+
+## Installation
+
+```r
+# install.packages("remotes")
+remotes::install_github("RobinMahachi/caples")
+```
+
+## Workflow
+
+Plan first, analyse second.
+
+```{r example}
+library(caples)
+
+# 1. Plan the test before it runs
+plan <- caples_design(baseline = 0.05, mde = 0.01, power = 0.85, arms = 3)
+plan
+
+# 2. Run the test (simulated here)
+set.seed(42)
+n <- plan$n_per_arm
+df <- data.frame(
+  arm = rep(c("control", "A", "B"), times = n),
+  converted = c(rbinom(n[1], 1, 0.050),
+                rbinom(n[2], 1, 0.052),
+                rbinom(n[3], 1, 0.062))
+)
+
+# 3. Read it out against the plan
+caples_test(df, group = "arm", outcome = "converted",
+            ctrl = "control", design = plan)
+```
+
+## What it does
+
+- Sizes tests with equal or unequal traffic splits and multiple arms
+- Pooled two-proportion z-tests with multiplicity correction (Holm by default)
+- Absolute and relative lifts with confidence intervals
+- Sample ratio mismatch (SRM) check
+- Sample size vs plan, and the achieved minimum detectable effect
+- A plain-English summary for stakeholders
