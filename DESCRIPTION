@@ -1,0 +1,15 @@
+Package: caples
+Title: Fast, Plain-English Readouts for A/B/n Tests
+Version: 0.1.0
+Authors@R: person("Robin", "Mahachi", email = "robinmahachi24@gmail.com", role = c("aut", "cre"))
+Description: Sizes and reads out A/B/n tests on conversion rates in a few
+    function calls. Supports unequal traffic splits, multiple treatment arms
+    with multiplicity correction, sample ratio mismatch checks, achieved
+    minimum detectable effects, and plain-English summaries.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Imports: stats
+Suggests: testthat (>= 3.0.0)
+Config/testthat/edition: 3
